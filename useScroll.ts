@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import throttle from "lodash.throttle"
 
 export default function useScroll() {
   const [scrollLeft, setScrollLeft] = useState(0) as any
@@ -7,7 +8,7 @@ export default function useScroll() {
 
   useEffect(() => {
     table?.removeEventListener("scroll", handleScroll)
-    table?.addEventListener("scroll", handleScroll, {
+    table?.addEventListener("scroll", throttle(handleScroll, 400), {
       passive: true,
     })
 
